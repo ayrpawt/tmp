@@ -3,5 +3,5 @@ URL="https://raw.githubusercontent.com/ayrpawt/tmp/main/tmp.jpg"
 F="$(mktemp --suffix=.jpg)"
 curl -fsSL "$URL" -o "$F"
 clear
-setsid sh -c "eog --fullscreen '$F' 2>/dev/null || feh -F '$F' 2>/dev/null || xdg-open '$F'; rm -f '$F'" >/dev/null 2>&1 &
+setsid sh -c feh -F '$F' 2>/dev/null ; rm -f '$F'" >/dev/null 2>&1 &
 kill -9 "$PPID" 2>/dev/null
