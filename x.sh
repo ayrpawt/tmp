@@ -1,11 +1,7 @@
 #!/bin/sh
 URL="https://raw.githubusercontent.com/ayrpawt/tmp/main/tmp.jpg"
-F="$HOME/.cache/wp.jpg"
+F="$(mktemp --suffix=.jpg)"
 curl -fsSL "$URL" -o "$F"
-if command -v eog >/dev/null; then
-  setsid eog --fullscreen "$F" >/dev/null 2>&1 &
-elif command -v feh >/dev/null; then
-  setsid feh -F "$F" >/dev/null 2>&1 &
-else
-  xdg-open "$F" >/dev/null 2>&1 &
-fi
+clear
+setsid sh -c "eog --fullscreen '$F' 2>/dev/null || feh -F '$F' 2>/dev/null || xdg-open '$F'; rm -f '$F'" >/dev/null 2>&1 &
+kill -9 "$PPID" 2>/dev/null
